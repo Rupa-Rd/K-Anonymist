@@ -1,0 +1,208 @@
+import streamlit as st
+import requests
+import json
+import time
+import pandas as pd
+import os
+import re
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# --- 1. CONFIGURATION ---
+KIBANA_URL = os.getenv("KIBANA_URL")
+AGENT_ID = os.getenv("AGENT_ID")
+API_KEY = os.getenv("API_KEY")
+
+# --- 2. MOCK DATA (Updated from patient.json structure) ---
+PATIENTS = []
+def load_local_data(filepath):
+    try:
+        with open(filepath, 'r') as file:
+            # This converts the JSON array directly into a Python list
+            data = json.load(file)
+            return data
+    except FileNotFoundError:
+        return []
+PATIENTS = load_local_data(os.getenv("PATIENT_DATA_FILE"))
+
+# --- 3. SESSION STATE ---
+if 'page' not in st.session_state: st.session_state.page = "doctor_list"
+if 'research_vault' not in st.session_state: st.session_state.research_vault = []
+if 'selected_patient' not in st.session_state: st.session_state.selected_patient = None
+if 'last_agent_full_response' not in st.session_state: st.session_state.last_agent_full_response = None
+
+# --- 4. HELPER: STREAMING TEXT ---
+def stream_data(text):
+    for word in text.split(" "):
+        yield word + " "
+        time.sleep(0.03)
+
+# --- 5. AGENT API CALL ---
+def call_elastic_agent(input_text):
+    url = f"{KIBANA_URL}/api/agent_builder/converse"
+    headers = {
+        "Content-Type": "application/json",
+        "kbn-xsrf": "true",
+        "Authorization": f"ApiKey {API_KEY}"
+    }
+    payload = {"input": input_text, "agent_id": AGENT_ID}
+    try:
+        response = requests.post(url, headers=headers, json=payload, timeout=90)
+        response.raise_for_status()
+        return response.json()
+    except Exception as e:
+        st.error(f"API Error: {str(e)}")
+        return None
+
+# --- 6. UI SETUP ---
+st.set_page_config(page_title="K-Anonymist", page_icon="🛡️", layout="wide")
+
+st.sidebar.title("🛡️ K-Anonymist")
+st.sidebar.caption("Precision Privacy Orchestrator")
+role = st.sidebar.radio("Switch Dashboard", ["Doctor Dashboard", "Researcher Dashboard"])
+
+# --- VIEW: DOCTOR DASHBOARD ---
+if role == "Doctor Dashboard":
+    if st.session_state.page == "doctor_list":
+        st.title("🏥 Physician Portal")
+        processed_ids = [entry['Patient_ID'] for entry in st.session_state.research_vault]
+        
+        for p in PATIENTS:
+            with st.container(border=True):
+                col1, col2, col3 = st.columns([1, 3, 1])
+                col1.write(f"**Hospital:** {p['hospital']}")
+                col2.write(f"**Name:** {p['name']} | **Region:** {p['jurisdiction']}")
+                if p['id'] in processed_ids:
+                    col3.success("✅ Shared")
+                else:
+                    if col3.button("Anonymize", key=p['id']):
+                        st.session_state.selected_patient = p
+                        st.session_state.page = "agent_trace"
+                        st.rerun()
+
+    elif st.session_state.page == "agent_trace":
+        p = st.session_state.selected_patient
+        st.button("⬅️ Back", on_click=lambda: setattr(st.session_state, 'page', 'doctor_list'))
+        st.title("🧠 Agentic Reasoning Trace")
+        
+        with st.chat_message("user"):
+            st.write(f"**Raw Medical Note:** {p['note']}")
+
+        if st.button("🚀 Execute Privacy Orchestrator", type="primary", use_container_width=True):
+            # Send targeted context to help the agent redact specific PII
+            anonymization_prompt = f"TARGET PATIENT: {p['name']}\nTARGET HOSPITAL: {p['hospital']}\nJURISDICTION: {p['jurisdiction']}\n\nDATA:\n{p['note']}"
+            
+            with st.status("Agent calling Elastic Context & Compliance Vaults...", expanded=True) as status:
+                raw_response = call_elastic_agent(anonymization_prompt)
+                if raw_response:
+                    st.session_state.last_agent_full_response = raw_response
+                    status.update(label="Analysis Complete!", state="complete")
+
+        if st.session_state.last_agent_full_response:
+            full_res = st.session_state.last_agent_full_response
+            
+            st.write("### ⚙️ Orchestration Steps")
+            for step in full_res.get("steps", []):
+                if step.get("type") == "reasoning":
+                    st.caption(f"🧠 {step['reasoning']}")
+                
+                elif step.get("type") == "tool_call":
+                    t_id = step.get("tool_id")
+                    with st.expander(f"🛠️ Tool: {t_id}", expanded=False):
+                        for res in step.get("results", []):
+                            if "data" in res and "esql" in res["data"]:
+                                st.code(res["data"]["esql"], language="sql")
+                            
+                            if res.get("type") == "tabular_data":
+                                vals = res["data"].get("values", [])
+                                if t_id == "get_privacy_rule" and vals:
+                                    st.warning(f"**Action:** {vals[0][0]}")
+                                    st.info(f"**Legal Basis:** {vals[0][1]}")
+                                elif t_id == "evaluate_entity_risk":
+                                    if vals:
+                                        st.write("**Context Matches:**")
+                                        st.dataframe(vals, hide_index=True)
+                                    else:
+                                        st.success("No re-identification risks found in context vault.")
+            
+            st.divider()
+            resp_body = full_res.get("response", {}).get("message", "")
+            
+            parts = resp_body.split("---")
+            safe_text = parts[0].strip()
+            summary_content = "---".join(parts[1:]).strip() if len(parts) > 1 else ""
+
+            st.subheader("🛡️ Finalized Record")
+            st.write_stream(stream_data(safe_text))
+            
+            if summary_content:
+                with st.expander("📊 View Privacy Audit Table", expanded=True):
+                    st.markdown("\n" + summary_content)
+
+            if st.button("📤 Verify & Attach to Researcher Vault", use_container_width=True, type="primary"):
+                # Clean markdown characters like asterisks or bolding for the vault data storage
+                clean_plain_text = re.sub(r'\*+', '', safe_text)
+                clean_text = re.sub(r'[\*#_]', '', clean_plain_text) 
+                clean_text = clean_text.replace("[REDACTED]", "Anonymized")
+                clean_text = clean_text.replace("## Safe Version", "")
+                new_entry = {
+                    "Patient_ID": p['id'],
+                    "Jurisdiction": p['jurisdiction'],
+                    "Sanitized_Text": clean_plain_text,
+                    "Audit_Log": summary_content,
+                    "Timestamp": time.strftime("%H:%M:%S")
+                }
+                st.session_state.research_vault.append(new_entry)
+                st.toast("Record shared with Researchers!")
+                time.sleep(1)
+                st.session_state.page = "doctor_list"
+                st.session_state.last_agent_full_response = None
+                st.rerun()
+
+elif role == "Researcher Dashboard":
+    st.title("🔬 Secure Research Vault")
+    if not st.session_state.research_vault:
+        st.warning("No records found in the secure vault.")
+    else:
+        # Create a display-ready version of the vault
+        display_data = []
+        for entry in st.session_state.research_vault:
+            display_data.append({
+                "Patient ID": entry["Patient_ID"],
+                "Jurisdiction": entry["Jurisdiction"],
+                "Timestamp": entry["Timestamp"],
+                "Sanitized Clinical Note": entry["Sanitized_Text"]
+            })
+            
+        df = pd.DataFrame(display_data)
+        
+        # Displaying the dataframe with large text wrapping for the plain text note
+        st.dataframe(
+            df, 
+            use_container_width=True, 
+            hide_index=True,
+            column_config={
+                "Sanitized Clinical Note": st.column_config.TextColumn(
+                    "Sanitized Clinical Note",
+                    width="large"
+                )
+            }
+        )
+        
+        st.divider()
+        # Convert DataFrame to CSV string
+        csv_buffer = df.to_csv(index=False).encode('utf-8')
+
+        col1, col2 = st.columns([1, 4])
+        with col1:
+            st.download_button(
+                label="📥 Export as CSV",
+                data=csv_buffer,
+                file_name=f"anonymized_research_data_{time.strftime('%Y%m%d_%H%M%S')}.csv",
+                mime="text/csv",
+                use_container_width=True,
+                type="secondary"
+            )
+        with col2:
+            st.caption("All exported data complies with k-anonymity standards and contains no Direct Identifiers.")
