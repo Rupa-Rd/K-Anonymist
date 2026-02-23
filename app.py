@@ -126,16 +126,24 @@ if role == "Doctor Dashboard":
                                 if vals:
                                     st.markdown("**Compliance Standards Identified:**")
                                     
-                                    # Define your desired headers
-                                    target_headers = ["Risk Factor", "Entity Type", "Action", "Legal Basis"]
+                                    # We only assign headers for Action and Reason
+                                    # This matches the 'action' and 'reason' fields from your upload script
+                                    display_headers = ["Action", "Reason"]
                                     
-                                    # Create the DataFrame safely
-                                    # If the agent returns fewer columns, we only use as many headers as available
-                                    num_cols = len(vals[0])
-                                    display_headers = target_headers[:num_cols]
-                                    
-                                    df_rules = pd.DataFrame(vals, columns=display_headers)
-                                    st.table(df_rules)
+                                    try:
+                                        # Ensure we only take the number of columns the data actually provides
+                                        num_cols_received = len(vals[0])
+                                        final_headers = display_headers[:num_cols_received]
+                                        
+                                        df_rules = pd.DataFrame(vals, columns=final_headers)
+                                        
+                                        # Clean up any potential markdown from the LLM response
+                                        df_rules = df_rules.map(lambda x: str(x).replace("**", "") if isinstance(x, str) else x)
+                                        
+                                        st.table(df_rules)
+                                    except Exception as e:
+                                        st.error(f"Display Error: {e}")
+                                        st.write(vals) # Fallback to show raw data if headers still mismatch
                             
                             # Tabular Display for Tool 2: evaluate_entity_risk
                             elif t_id == "evaluate_entity_risk" and res.get("type") == "tabular_data":
@@ -229,4 +237,5 @@ elif role == "Researcher Dashboard":
         with col2:
 
             st.caption("All exported data complies with k-anonymity standards and contains no Direct Identifiers.")
+
 
