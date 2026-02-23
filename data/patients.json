@@ -1,0 +1,72 @@
+[
+  {
+    "id": "P-882",
+    "name": "Peter de Vries",
+    "hospital": "Amsterdam University Medical Center",
+    "jurisdiction": "Netherlands",
+    "note": "Practitioner: Dr. Anika de Groot, Oncology\nPatient: Peter de Vries (BSN: 123-456-789) | DOB: 14/03/1972\nAddress: Prinsengracht 102, 1017 KJ Amsterdam, Netherlands\n\nClinical Note: Patient presented for a scheduled follow-up regarding Stage II follicular lymphoma, originally diagnosed at the VUmc location. During the intake, he mentioned that since his last visit on Martin Luther King Jr. Day, he has experienced persistent mild neuropathy in his lower extremities, specifically localized to the bilateral metatarsal region. Peter remains highly active as a prominent figure in the local Amsterdam Canal Restoration Project, a role that involves significant public speaking and physical site visits. He is currently on a maintenance regimen of Rituximab, administered every eight weeks. Recent blood work indicates stable white cell counts and no lymphadenopathy. He expressed concern regarding a scheduled trip to the Hague next month for a heritage conservation conference; I have provided a travel clearance letter. No acute distress noted today, but we will monitor the neuropathy closely. Follow-up CT scan scheduled for late March."
+  },
+  {
+    "id": "P-901",
+    "name": "Mark van den Berg",
+    "hospital": "Mount Sinai Hospital",
+    "jurisdiction": "USA",
+    "note": "Practitioner: Dr. James Miller, Cardiology\nPatient: Mark van den Berg (SSN: 999-00-1111) | DOB: 07/12/1958\nAddress: 450 East 63rd St, New York, NY 10065\n\nClinical Note: Mr. van den Berg was admitted via the ER following a syncopal episode that occurred while he was watching the July 4th fireworks display at Central Park. The patient reports a brief loss of consciousness preceded by lightheadedness. He has a documented history of atrial fibrillation and is managed on Warfarin. Currently, Mark serves as a Lead Engineer at the NY Water Department, overseeing the North River Wastewater Treatment Plant. His wife, Sarah, was present during the examination and reported that Mark has been under exceptional stress due to the ongoing city-wide infrastructure audit. Physical exam revealed a minor contusion on the left temporal region from the fall. EKG showed normal sinus rhythm today, but a 48-hour Holter monitor has been ordered to rule out intermittent arrhythmia. He is advised to avoid strenuous activity until the cardiac workup is complete."
+  },
+  {
+    "id": "P-443",
+    "name": "Elena Ricci",
+    "hospital": "UMC Utrecht",
+    "jurisdiction": "Netherlands",
+    "note": "Practitioner: Dr. Sarah Jansen, Neurology\nPatient: Elena Ricci (ID: NL-8821) | DOB: 22/05/1985\nAddress: Maliesingel 44, 3581 BK Utrecht, Netherlands\n\nClinical Note: Patient Ricci, an Italian national currently residing in Utrecht, presents with chronic migraines that she reports are recurring with high frequency every Tuesday morning. Elena is a research scientist at the European Space Agency (ESA) branch in Noordwijk, specializing in satellite propulsion. She notes that the symptoms intensified shortly after the New Year's Day holiday. Neurological examination, including cranial nerve testing, is entirely unremarkable. However, she mentions that the stress of her high-level security clearance for the Galileo Satellite project may be a contributing factor. I have suggested a 4-week headache diary and a trial of Sumatriptan for acute attacks. We discussed the importance of sleep hygiene. She requested that her records remain strictly confidential given the nature of her government employment. Referral to the Pain Management Clinic in Zeist if symptoms persist beyond one month."
+  },
+  {
+    "id": "P-221",
+    "name": "Linda Thompson",
+    "hospital": "Mayo Clinic",
+    "jurisdiction": "USA",
+    "note": "Practitioner: Dr. Robert Chen, Endocrinology\nPatient: Linda Thompson (SSN: 221-55-0987) | DOB: 01/01/1990\nAddress: 200 First St SW, Rochester, MN 55905\n\nClinical Note: Linda is a 34-year-old female here for a quarterly review of Type 1 Diabetes management. She is a professional marathon runner and recently participated in the Boston Marathon, where she experienced significant glycemic variability during the race. Her current insulin-to-carb ratio is 1:10. Linda recently relocated to Minnesota from Seattle, WA, and is still coordinating her long-term history with her former primary care physician, Dr. Wilson, at the Swedish Medical Center. Her Dexcom G6 data shows an average blood glucose of 145 mg/dL with a time-in-range of 72%. We discussed adjusting her basal rate during heavy training blocks. No signs of peripheral neuropathy or diabetic retinopathy were found during today's physical. She is highly motivated and continues to use a Tandem t:slim X2 pump. We have ordered an A1c test and a lipid panel to be completed by Friday."
+  },
+  {
+    "id": "P-554",
+    "name": "Jan Smit",
+    "hospital": "Erasmus MC",
+    "jurisdiction": "Netherlands",
+    "note": "Practitioner: Prof. Lars Bakker, Gastroenterology\nPatient: Jan Smit (BSN: 554-33-2210) | DOB: 30/11/1965\nAddress: Westzeedijk 353, 3015 AA Rotterdam, Netherlands\n\nClinical Note: Mr. Smit presents with persistent lower abdominal pain and change in bowel habits over the last six weeks. He is a prominent local politician and an active member of the Rotterdam Port Authority board. He specifically noted that the pain seems to flare up following social dinners at the Hotel New York restaurant. There is a strong paternal family history of Crohn’s disease and colorectal cancer. Patient is a current smoker, averaging 15 cigarettes a day, and admits to high occupational stress. On palpation, there is mild tenderness in the right lower quadrant but no palpable masses. A colonoscopy has been fast-tracked for the second week of February at the Rotterdam South annex. We have also ordered a fecal calprotectin test. He was advised on smoking cessation and provided with resources for the Erasmus MC Stop-Smoking program."
+  },
+  {
+    "id": "P-870",
+    "name": "Noah Miller",
+    "hospital": "Cedar-Sinai Medical Center",
+    "jurisdiction": "USA",
+    "note": "Practitioner: Dr. Chloe Zhao, Pediatrics\nPatient: Noah Miller (DOB: 15/01/2026) | Mother: Rebecca Miller\nAddress: 8700 Beverly Blvd, Los Angeles, CA 90048\n\nClinical Note: Infant Noah was born at 38 weeks via scheduled C-section at the Beverly Hills Birthing Center. Birth weight was 3.4kg. Mother has a history of gestational diabetes managed with diet. During today's 1-week checkup, Noah is showing visible signs of neonatal jaundice. Labs confirm a serum bilirubin level of 12.4 mg/dL. Noah is breastfeeding well, though his mother reports he is slightly lethargic this morning. Given the family's high profile—the father is a well-known director at a major Hollywood studio—they have requested a private room for the phototherapy session if it becomes necessary. We will continue to monitor bilirubin levels daily. For now, we are increasing the frequency of feedings and using a BiliBlanket at home. Follow-up appointment scheduled for tomorrow morning at the LA Neonatal Clinic."
+  },
+  {
+    "id": "P-776",
+    "name": "Fatima Al-Sayed",
+    "hospital": "Radboudumc",
+    "jurisdiction": "Netherlands",
+    "note": "Practitioner: Dr. Thomas Willems, Infectious Diseases\nPatient: Fatima Al-Sayed (ID: 7762-X) | DOB: 10/10/1982\nAddress: Geert Grooteplein Zuid 10, 6525 GA Nijmegen, Netherlands\n\nClinical Note: Fatima presents with a five-day history of recurring high fever, chills, and severe myalgia. She recently returned from a 2-month relief mission in South Sudan with Médecins Sans Frontières (MSF), where she served as a specialized trauma surgeon. Fatima is currently staying with her sister’s family in Arnhem. Initial labs show an elevated C-reactive protein (CRP) and mild leukopenia. We are testing urgently for Malaria, Dengue fever, and Typhoid. She reports taking Malarone prophylaxis throughout her trip but admits to missing several doses during a period of heavy caseloads at the field hospital. She is currently stable but requires hydration. If the fever does not break within 24 hours, we will admit her to the isolation ward for further observation and intravenous antibiotics. Public health authorities have been notified of her travel history."
+  },
+  {
+    "id": "P-180",
+    "name": "Samuel Jackson",
+    "hospital": "Johns Hopkins Hospital",
+    "jurisdiction": "USA",
+    "note": "Practitioner: Dr. Alice Morgan, Rheumatology\nPatient: Samuel Jackson (SSN: 443-22-1100) | DOB: 19/06/1975\nAddress: 1800 Orleans St, Baltimore, MD 21287\n\nClinical Note: Mr. Jackson is a 48-year-old male here for management of rheumatoid arthritis (RA). He is currently the principal of a large high school in the Baltimore County district and reports that joint flare-ups are severely impacting his ability to type administrative reports and navigate the school campus. The pain is primarily localized in the MCP and PIP joints of both hands. Samuel is a veteran of the US Navy, with previous exposure to heavy machinery. He was started on Methotrexate six months ago, but his symptoms have not achieved the target remission state. We discussed transitioning to a biologic agent such as Adalimumab. Labs today include a CBC, liver function tests, and an ESR. He is also using Ibuprofen 800mg as needed for breakthrough pain. We have scheduled a follow-up in six weeks to evaluate the response to the new medication."
+  },
+  {
+    "id": "P-101",
+    "name": "Sophie van Gelder",
+    "hospital": "Isala Hospital",
+    "jurisdiction": "Netherlands",
+    "note": "Practitioner: Dr. Hendrik Voort, Orthopedics\nPatient: Sophie van Gelder (BSN: 101-202-303) | DOB: 05/05/2002\nAddress: Dokter van Heesweg 2, 8025 AB Zwolle, Netherlands\n\nClinical Note: Sophie, a 21-year-old student at Windesheim University, was brought in after a fall at the IJsbaan Zwolle skating rink. Physical examination and X-ray imaging confirm a non-displaced fracture of the distal radius (Colles' fracture). A fiberglass cast was applied today in the Zwolle Orthopedic wing. Sophie expressed extreme distress regarding her upcoming final exams in March, as she is right-hand dominant and currently unable to write or type effectively. She lives in a student dormitory on Campus 2-6 and has limited assistance with daily activities. We have provided her with a formal medical excuse for the University's examination board. She is prescribed Naproxen for pain management and advised to keep the limb elevated. Follow-up X-ray in two weeks to ensure proper alignment."
+  },
+  {
+    "id": "P-950",
+    "name": "Gregory Peck",
+    "hospital": "Cleveland Clinic",
+    "jurisdiction": "USA",
+    "note": "Practitioner: Dr. Kevin Patel, Pulmonology\nPatient: Gregory Peck (SSN: 887-11-2233) | DOB: 25/12/1944\nAddress: 9500 Euclid Ave, Cleveland, OH 44195\n\nClinical Note: Gregory, a retired firefighter from the Cleveland Fire Department, presents today with worsening dyspnea and chronic cough. He was a first responder during several major industrial fires in the 1970s, which likely contributed to his current COPD diagnosis. His current oxygen saturation is 92% on room air, dropping to 88% during a 6-minute walk test. He currently utilizes a CPAP machine at night for concurrent obstructive sleep apnea. Gregory is a widower and lives alone in a split-level home in Shaker Heights; he mentioned difficulty navigating the stairs lately. We are initiating a trial of Spiriva and referring him to the Pulmonary Rehabilitation program at the Euclid Avenue main campus. He is also due for his pneumococcal vaccine. Follow-up PFTs (Pulmonary Function Tests) have been ordered for next month."
+  }
+]
