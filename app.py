@@ -124,10 +124,18 @@ if role == "Doctor Dashboard":
                             if t_id == "get_privacy_rule" and res.get("type") == "tabular_data":
                                 vals = res["data"].get("values", [])
                                 if vals:
-                                    # Creating a Clean DataFrame for Legal Rules
-                                    df_rules = pd.DataFrame(vals, columns=["Risk Factor", "Entity Type", "Action", "Legal Basis"])
                                     st.markdown("**Compliance Standards Identified:**")
-                                    st.table(df_rules) # 'table' looks more "official" for rules than 'dataframe'
+                                    
+                                    # Define your desired headers
+                                    target_headers = ["Risk Factor", "Entity Type", "Action", "Legal Basis"]
+                                    
+                                    # Create the DataFrame safely
+                                    # If the agent returns fewer columns, we only use as many headers as available
+                                    num_cols = len(vals[0])
+                                    display_headers = target_headers[:num_cols]
+                                    
+                                    df_rules = pd.DataFrame(vals, columns=display_headers)
+                                    st.table(df_rules)
                             
                             # Tabular Display for Tool 2: evaluate_entity_risk
                             elif t_id == "evaluate_entity_risk" and res.get("type") == "tabular_data":
@@ -221,3 +229,4 @@ elif role == "Researcher Dashboard":
         with col2:
 
             st.caption("All exported data complies with k-anonymity standards and contains no Direct Identifiers.")
+
